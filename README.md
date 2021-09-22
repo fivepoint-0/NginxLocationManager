@@ -12,7 +12,7 @@ This utility is meant to create easy (right now only) proxy locations in any Ngi
 We'll be using the default configuration file for Nginx. To instantiate the manager, do:
 
 ```python
-from __init__ import NginxLocationManager
+from NginxLocationManager import NginxLocationManager
 
 mgr = NginxLocationManager()
 mgr.parse_locations()
