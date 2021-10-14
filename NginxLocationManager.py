@@ -2,9 +2,9 @@
 
 import re
 from .NginxLocation import NginxLocation
-from .NginxLocationOption import OptionParser, ProxyPassOption, ProxyRedirectOption, SetHeaderOption
+from .NginxDirective import OptionParser, ProxyPassOption, ProxyRedirectOption, SetHeaderOption
 
-class NginxLocationManager:
+class LocationManager:
     config_file = ""
     config_file_data = ""
     locations = []
@@ -42,7 +42,7 @@ class NginxLocationManager:
         location_index = 0
         
         for location in self.locations:
-            location.id = location_index
+            self.locations[self.locations.index(location)].id = location_index
             location_index += 1
 
     def create_location(self, uri="/uri-location/", options=[
@@ -54,9 +54,9 @@ class NginxLocationManager:
         ProxyRedirectOption('http://', 'https://')
     ]):
         new_id = len(self.locations)
-        _location = NginxLocation(new_id, uri, options)
-        self.locations.append(_location)
-        return _location
+        location = NginxLocation(new_id, uri, options)
+        self.locations.append(location)
+        return location
     
     def delete_location(self, id):
         self.locations = list(filter((lambda x: x.id != id), self.locations))
